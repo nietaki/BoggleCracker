@@ -24,6 +24,10 @@ namespace BoggleCracker
 				var boardLetters = Console.ReadLine();
 				var board = new BoggleBoard(boardLetters);
 				board.PrintRepresentation();
+				var foundWords = WordFinder.FindWords(board, root);
+				foreach (var foundWord in foundWords) {
+					Console.WriteLine(foundWord);
+				}
 			}
 		}
 	}

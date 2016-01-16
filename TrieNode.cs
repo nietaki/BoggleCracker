@@ -5,23 +5,23 @@ namespace BoggleCracker
 {
 	public class TrieNode
 	{
-		bool ContainsWord { get; set; }
+		public bool ContainsWord { get; set; }
 
-		Dictionary<char, TrieNode> children { get; set; } 
+		public Dictionary<char, TrieNode> Children { get; set; } 
 
 		public TrieNode(bool containsWord)
 		{
-			children = new Dictionary<char, TrieNode>();
+			Children = new Dictionary<char, TrieNode>();
 			this.ContainsWord = containsWord;
 		}
 
 		public TrieNode GetOrInsertChild(char childsCharacter) {
-			if(children.ContainsKey(childsCharacter)) {
-				return children[childsCharacter];
+			if(Children.ContainsKey(childsCharacter)) {
+				return Children[childsCharacter];
 			}
 
 			var ret = new TrieNode(false);
-			children.Add(childsCharacter, ret);
+			Children.Add(childsCharacter, ret);
 			return ret;
 		}
 
@@ -39,7 +39,7 @@ namespace BoggleCracker
 
 		private void Print(int level) {
 			var indent = new String('-', level);
-			foreach (var kv in children) {
+			foreach (var kv in Children) {
 				var c = kv.Key;
 				var node = kv.Value;
 

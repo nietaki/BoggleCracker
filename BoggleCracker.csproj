@@ -38,6 +38,7 @@
     <Compile Include="Utils.cs" />
     <Compile Include="TrieNode.cs" />
     <Compile Include="BoggleBoard.cs" />
+    <Compile Include="WordFinder.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
