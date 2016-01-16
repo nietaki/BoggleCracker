@@ -44,5 +44,6 @@
   <ItemGroup>
     <None Include="res\sjp-20151013\README.txt" />
     <None Include="res\sjp-20151013\slowa-win.txt" />
+    <None Include="README.md" />
   </ItemGroup>
 </Project>

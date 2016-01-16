@@ -8,8 +8,9 @@ namespace BoggleCracker
 		public static void Main(string[] args)
 		{
 			if (args.Length < 1) {
-				Console.WriteLine("you need to provide the dictionary location");
+				Console.WriteLine("you need to provide the dictionary location as the program argument");
 			}
+
 			var root = new TrieNode(false);
 
 			var words = Utils.ReadWordsFromDictionary(args.First(), System.Text.Encoding.GetEncoding("windows-1250"));
@@ -20,18 +21,20 @@ namespace BoggleCracker
 
 			//root.Print();
 			while (true) {
-				Console.WriteLine("please provide board representation");	
+				Console.WriteLine("Please provide board representation (one line, 16 characters):");	
 				var boardLetters = Console.ReadLine();
-				var board = new BoggleBoard(boardLetters);
-				board.PrintRepresentation();
+				if (boardLetters.Length == 16) {
+					var board = new BoggleBoard(boardLetters);
+					board.PrintRepresentation();
 
-				var foundWords = WordFinder.FindWords(board, root);
+					var foundWords = WordFinder.FindWords(board, root);
 
-				var longEnoughWords = foundWords.Where(w => w.Length > 2).ToList();
-				Utils.SortByLengthAndAlphabet(longEnoughWords);
+					var longEnoughWords = foundWords.Where(w => w.Length > 2).Distinct().ToList();
+					Utils.SortByLengthAndAlphabet(longEnoughWords);
 
-				foreach (var foundWord in longEnoughWords.Select(w => w.ToUpper(Utils.PolishCultureInfo))) {
-					Console.WriteLine(foundWord);
+					foreach (var foundWord in longEnoughWords.Select(w => w.ToUpper(Utils.PolishCultureInfo))) {
+						Console.WriteLine(foundWord);
+					}
 				}
 			}
 		}
