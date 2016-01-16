@@ -6,6 +6,8 @@ namespace BoggleCracker
 {
 	public class BoggleBoard
 	{
+		private static readonly List<int>[] neigborsMemo = new List<int>[16];
+
 		private string letters;
 		private bool[] isUsed;
 
@@ -45,7 +47,11 @@ namespace BoggleCracker
 			this.SetUsageState(idx, false);
 		}
 
-		public IEnumerable<int> GetNeighbors(int idx) {
+		public static IEnumerable<int> GetNeighbors(int idx) {
+			if (neigborsMemo[idx] != null) {
+				return neigborsMemo[idx];
+			}
+
 			List<int> indices = new List<int>();	
 			indices.Add(idx - 4);
 			indices.Add(idx + 4);
@@ -62,11 +68,13 @@ namespace BoggleCracker
 				indices.Add(idx + 5);
 			}
 
-			return indices.Where(this.IsWithinBoard);
+			var ret = indices.Where(IsWithinBoard).ToList();
+			neigborsMemo[idx] = ret;
+			return ret;
 		}
 
 		public IEnumerable<int> GetUnusedNeighbors(int idx) {
-			return this.GetNeighbors(idx).Where(this.IsUnusedAndWithinBoard);
+			return GetNeighbors(idx).Where(this.IsUnusedAndWithinBoard);
 		}
 
 		private static bool IsOnLeftWall(int idx) {
@@ -77,12 +85,12 @@ namespace BoggleCracker
 			return (idx % 4) == 3;
 		}
 
-		public bool IsWithinBoard(int idx) {
+		public static bool IsWithinBoard(int idx) {
 			return (idx >= 0) && (idx < 4 * 4);
 		}	
 
 		public bool IsUnusedAndWithinBoard(int idx) {
-			return this.IsWithinBoard(idx) && !this.isUsed[idx];
+			return IsWithinBoard(idx) && !this.isUsed[idx];
 		}
 	}
 }
