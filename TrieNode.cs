@@ -27,8 +27,8 @@ namespace BoggleCracker
 
 		public void InsertWord(string word) {
 			var curNode = this;
-			foreach (var w in word) {
-				curNode = curNode.GetOrInsertChild(w);	
+			foreach (var chr in word) {
+				curNode = curNode.GetOrInsertChild(chr);	
 			}
 			curNode.ContainsWord = true;
 		}
