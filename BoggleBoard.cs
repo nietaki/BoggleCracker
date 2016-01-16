@@ -16,7 +16,7 @@ namespace BoggleCracker
 			if (rows.Length != 4 * 4) {
 				throw new ArgumentException("boggle board consists of 16 characters", rows);
 			}
-			this.letters = rows.ToLower(Utils.PolishCultureInfo);
+			this.letters = rows.ToLower(Utils.CurrentCultureInfo);
 			this.isUsed = new bool[16];
 		}
 
@@ -27,7 +27,7 @@ namespace BoggleCracker
 		public void PrintRepresentation() {
 			Console.WriteLine();
 			for (int i = 0; i < 4; i++) {
-				Console.WriteLine(letters.Substring(i * 4, 4).ToUpper(Utils.PolishCultureInfo));
+				Console.WriteLine(letters.Substring(i * 4, 4).ToUpper(Utils.CurrentCultureInfo));
 			}
 			Console.WriteLine();
 		}

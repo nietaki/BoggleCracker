@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Globalization;
 
 namespace BoggleCracker
 {
@@ -7,13 +8,15 @@ namespace BoggleCracker
 	{
 		public static void Main(string[] args)
 		{
-			if (args.Length < 1) {
-				Console.WriteLine("you need to provide the dictionary location as the program argument");
+			if (args.Length < 2) {
+				Console.WriteLine("you need to provide 2 arguments: the culture (like pl-PL) and the path to the word dictionary");
 			}
+
+			Utils.CurrentCultureInfo = CultureInfo.CreateSpecificCulture(args.First());
 
 			var root = new TrieNode(false);
 
-			var words = Utils.ReadWordsFromDictionary(args.First(), System.Text.Encoding.GetEncoding("windows-1250"));
+			var words = Utils.ReadWordsFromDictionary(args[1], System.Text.Encoding.GetEncoding("windows-1250"));
 			foreach (var word in words) {
 				//Console.WriteLine(word);	
 				root.InsertWord(word);
@@ -32,7 +35,7 @@ namespace BoggleCracker
 					var longEnoughWords = foundWords.Where(w => w.Length > 2).Distinct().ToList();
 					Utils.SortByLengthAndAlphabet(longEnoughWords);
 
-					foreach (var foundWord in longEnoughWords.Select(w => w.ToUpper(Utils.PolishCultureInfo))) {
+					foreach (var foundWord in longEnoughWords.Select(w => w.ToUpper(Utils.CurrentCultureInfo))) {
 						Console.WriteLine(foundWord);
 					}
 				}

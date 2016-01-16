@@ -11,7 +11,7 @@ namespace BoggleCracker
 			return File.ReadLines(path, encoding);
 		}
 
-		public static readonly CultureInfo PolishCultureInfo = CultureInfo.CreateSpecificCulture("pl-PL");
+		public static CultureInfo CurrentCultureInfo = CultureInfo.CreateSpecificCulture("pl-PL");
 
 		public static void SortByLengthAndAlphabet(List<string> words) {
 			words.Sort((x, y) => {
