@@ -24,8 +24,13 @@ namespace BoggleCracker
 				var boardLetters = Console.ReadLine();
 				var board = new BoggleBoard(boardLetters);
 				board.PrintRepresentation();
+
 				var foundWords = WordFinder.FindWords(board, root);
-				foreach (var foundWord in foundWords) {
+
+				var longEnoughWords = foundWords.Where(w => w.Length > 2).ToList();
+				Utils.SortByLengthAndAlphabet(longEnoughWords);
+
+				foreach (var foundWord in longEnoughWords.Select(w => w.ToUpper(Utils.PolishCultureInfo))) {
 					Console.WriteLine(foundWord);
 				}
 			}
